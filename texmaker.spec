@@ -1,26 +1,27 @@
-%define name texmaker
-%define version 1.12
-%define release %mkrel 2
-%define qtdir %_prefix/lib/qt3
+%define name 	texmaker
+%define version 1.5
+%define release %mkrel 1
 
-Summary: A LATEX editor
-Name: %{name}
-Version: %{version}
-Release: %{release}
-Source0: %{name}-%{version}.tar.bz2
-License: GPL
-Group: Publishing
-Url: http://www.xm1math.net/texmaker/index.html
-BuildRoot: %{_tmppath}/%{name}-buildroot
-BuildRequires: qt3-devel
-BuildRequires: kdelibs-devel
+%define qtdir	%_prefix/lib/qt4
+
+Summary: 	A QT-based LATEX editor
+Name: 		%{name}
+Version: 	%{version}
+Release: 	%{release}
+Source0: 	%{name}-%{version}.tar.bz2
+License: 	GPL
+Group: 		Publishing
+Url: 		http://www.xm1math.net/texmaker/index.html
+BuildRoot: 	%{_tmppath}/%{name}-buildroot
+BuildRequires: 	qt4-devel
+#BuildRequires: 	kdelibs-devel
 
 %description
-Texmaker is a program, that integrates many tools needed 
-to develop documents with LaTeX, in just one application. 
+Texmaker is a free LaTeX editor that integrates many tools needed to develop
+documents with LaTeX, in just one application.
 
-It have thoses features:
-- an editor to write your LaTeX source files 
+It includes the following features:
+- an unicode editor to write your LaTeX source files 
   (syntax highlighting, undo-redo, search-replace, ...)
 - the principal LaTex tags can be inserted directly with the "LaTeX", 
   "Math" and "Greek" menus 
@@ -45,41 +46,38 @@ It have thoses features:
 %setup -q 
 
 %build
-#export LD_LIBRARY_PATH=%qtdir/lib:$LD_LIBRARY_PATH
-#export PATH=%qtdir/bin:$PATH
 export QTDIR=%qtdir
-%qtdir/bin/qmake -makefile -unix "LIBS +=-lm $QTDIR/%{_lib}/libqt-mt.so.3" texmaker.pro
-
-export CFLAGS=$RPM_OPT_FLAGS
-export CXXFLAGS=$RPM_OPT_FLAGS
-
+%qtdir/bin/qmake %name.pro
+perl -pi -e "s|-O2|$RPM_OPT_FLAGS||g" Makefile
 %make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT%_bindir
-mkdir -p $RPM_BUILD_ROOT{%_miconsdir,%_iconsdir,%_liconsdir}
-mkdir -p $RPM_BUILD_ROOT%_datadir/applnk/Office
-cp -v utilities/texmaker.desktop $RPM_BUILD_ROOT%_datadir/applnk/Office/texmaker.desktop
-cp -v texmaker $RPM_BUILD_ROOT%_bindir/texmaker
-cp -v utilities/texmaker16x16.png $RPM_BUILD_ROOT%_miconsdir/%name.png
-cp -v utilities/texmaker32x32.png $RPM_BUILD_ROOT/%_iconsdir/%name.png
-cp -v utilities/texmaker48x48.png $RPM_BUILD_ROOT/%_liconsdir/%name.png
+mkdir -p %buildroot/%_bindir
+install -m 755 %name %buildroot/%_bindir
 
-# menu of course
-mkdir -p $RPM_BUILD_ROOT/%_menudir
-cat >$RPM_BUILD_ROOT%{_menudir}/%{name} <<EOF
-?package(%{name}):\
-command="%{_bindir}/%{name}"\
-title="Texmaker"\
-longtitle="A power latex editor"\
-needs="kde"\
-section="Office/Wordprocessors"\
-icon="%{name}.png"
-EOF
+# icons
+mkdir -p %buildroot/%_miconsdir
+cp utilities/texmaker16x16.png $RPM_BUILD_ROOT/%_miconsdir/%name.png
+mkdir -p %buildroot/%_iconsdir/hicolor/16x16/apps
+cp utilities/texmaker16x16.png $RPM_BUILD_ROOT/%_iconsdir/hicolor/16x16/apps/%name.png
+cp utilities/texmaker32x32.png $RPM_BUILD_ROOT/%_iconsdir/%name.png
+mkdir -p %buildroot/%_iconsdir/hicolor/32x32/apps
+cp utilities/texmaker32x32.png $RPM_BUILD_ROOT/%_iconsdir/hicolor/32x32/apps/%name.png
+mkdir -p %buildroot/%_liconsdir
+cp utilities/texmaker48x48.png $RPM_BUILD_ROOT/%_liconsdir/%name.png
+mkdir -p %buildroot/%_iconsdir/hicolor/48x48/apps
+cp utilities/texmaker48x48.png $RPM_BUILD_ROOT/%_iconsdir/hicolor/48x48/apps/%name.png
+mkdir -p %buildroot/%_iconsdir/hicolor/scalable/apps
+cp utilities/texmaker.svg $RPM_BUILD_ROOT/%_iconsdir/hicolor/scalable/apps/%name.svg
+
+# menu
+mkdir -p %buildroot/%_datadir/applications
+cp utilities/texmaker.desktop %buildroot/%_datadir/applications
 
 %post
 %{update_menus}
+%update_icon_cache hicolor
 
 %postun
 %{clean_menus}
@@ -89,11 +87,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%doc utilities/latexhelp.html utilities/usermanual.html utilities/AUTHORS utilities/COPYING utilities/*.gif utilities/doc*
+%doc utilities/*.html utilities/*.css utilities/AUTHORS utilities/*.gif utilities/*.png
 %_bindir/%name
 %_miconsdir/%name.png
 %_iconsdir/%name.png
 %_liconsdir/%name.png
-%_menudir/%name
-%_datadir/applnk/Office/%name.desktop
+%_iconsdir/hicolor/16x16/apps/%name.png
+%_iconsdir/hicolor/32x32/apps/%name.png
+%_iconsdir/hicolor/48x48/apps/%name.png
+%_iconsdir/hicolor/scalable/apps/%name.svg
+%_datadir/applications/%name.desktop
 
