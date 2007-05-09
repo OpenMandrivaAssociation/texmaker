@@ -15,6 +15,7 @@ Group: 		Publishing
 Url: 		http://www.xm1math.net/texmaker/index.html
 BuildRoot: 	%{_tmppath}/%{name}-buildroot
 BuildRequires: 	qt4-devel
+Requires:	aspell
 
 %description
 Texmaker is a free LaTeX editor that integrates many tools needed to develop
