@@ -8,13 +8,13 @@ Summary: 	A QT-based LATEX editor
 Name: 		%{name}
 Version: 	%{version}
 Release: 	%{release}
+Epoch:		1
 Source0: 	%{name}-%{version}.tar.bz2
 License: 	GPL
 Group: 		Publishing
 Url: 		http://www.xm1math.net/texmaker/index.html
 BuildRoot: 	%{_tmppath}/%{name}-buildroot
 BuildRequires: 	qt4-devel
-#BuildRequires: 	kdelibs-devel
 
 %description
 Texmaker is a free LaTeX editor that integrates many tools needed to develop
