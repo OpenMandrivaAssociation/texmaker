@@ -1,6 +1,6 @@
 %define name 	texmaker
 %define version 1.5
-%define release %mkrel 1
+%define release %mkrel 2
 
 %define qtdir	%_prefix/lib/qt4
 
@@ -55,7 +55,7 @@ perl -pi -e "s|-O2|$RPM_OPT_FLAGS||g" Makefile
 %install
 rm -rf $RPM_BUILD_ROOT
 mkdir -p %buildroot/%_bindir
-install -m 755 %name %buildroot/%_bindir
+INSTALL_ROOT=%buildroot make install
 
 # icons
 mkdir -p %buildroot/%_miconsdir
@@ -88,8 +88,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%doc utilities/*.html utilities/*.css utilities/AUTHORS utilities/*.gif utilities/*.png
+%doc utilities/AUTHORS utilities/CHANGELOG.txt
 %_bindir/%name
+%_datadir/%name
 %_miconsdir/%name.png
 %_iconsdir/%name.png
 %_liconsdir/%name.png
