@@ -1,21 +1,17 @@
-%define name 	texmaker
-%define version 1.5
-%define release %mkrel 2
+%define qtdir    %{_prefix}/lib/qt4
 
-%define qtdir	%_prefix/lib/qt4
-
-Summary: 	A QT-based LATEX editor
-Name: 		%{name}
-Version: 	%{version}
-Release: 	%{release}
-Epoch:		1
-Source0: 	%{name}-%{version}.tar.bz2
-License: 	GPL
-Group: 		Publishing
-Url: 		http://www.xm1math.net/texmaker/index.html
-BuildRoot: 	%{_tmppath}/%{name}-buildroot
-BuildRequires: 	qt4-devel
-Requires:	aspell
+Name:            texmaker
+Version:         1.6
+Release:         %mkrel 1
+Epoch:           1
+Summary:         A QT-based LATEX editor
+License:         GPL
+Group:           Publishing
+URL:             http://www.xm1math.net/texmaker/index.html
+Source0:         http://www.xm1math.net/texmaker/texmaker-1.6.tar.bz2
+Requires:        aspell
+BuildRequires:   qt4-devel
+BuildRoot:       %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 Texmaker is a free LaTeX editor that integrates many tools needed to develop
@@ -47,34 +43,37 @@ It includes the following features:
 %setup -q 
 
 %build
-export QTDIR=%qtdir
-%qtdir/bin/qmake %name.pro
-perl -pi -e "s|-O2|$RPM_OPT_FLAGS||g" Makefile
-%make
+export QTDIR=%{qtdir}
+%{qtdir}/bin/qmake texmaker.pro
+%{__perl} -pi -e "s|-O2|%{optflags}||g" Makefile
+%{make}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p %buildroot/%_bindir
-INSTALL_ROOT=%buildroot make install
+rm -rf %{buildroot}
+mkdir -p %{buildroot}%_bindir
+INSTALL_ROOT=%{buildroot} make install
 
 # icons
-mkdir -p %buildroot/%_miconsdir
-cp utilities/texmaker16x16.png $RPM_BUILD_ROOT/%_miconsdir/%name.png
-mkdir -p %buildroot/%_iconsdir/hicolor/16x16/apps
-cp utilities/texmaker16x16.png $RPM_BUILD_ROOT/%_iconsdir/hicolor/16x16/apps/%name.png
-cp utilities/texmaker32x32.png $RPM_BUILD_ROOT/%_iconsdir/%name.png
-mkdir -p %buildroot/%_iconsdir/hicolor/32x32/apps
-cp utilities/texmaker32x32.png $RPM_BUILD_ROOT/%_iconsdir/hicolor/32x32/apps/%name.png
-mkdir -p %buildroot/%_liconsdir
-cp utilities/texmaker48x48.png $RPM_BUILD_ROOT/%_liconsdir/%name.png
-mkdir -p %buildroot/%_iconsdir/hicolor/48x48/apps
-cp utilities/texmaker48x48.png $RPM_BUILD_ROOT/%_iconsdir/hicolor/48x48/apps/%name.png
-mkdir -p %buildroot/%_iconsdir/hicolor/scalable/apps
-cp utilities/texmaker.svg $RPM_BUILD_ROOT/%_iconsdir/hicolor/scalable/apps/%name.svg
+mkdir -p %{buildroot}%_miconsdir
+cp utilities/texmaker16x16.png %{buildroot}%_miconsdir/%name.png
+mkdir -p %{buildroot}%_iconsdir/hicolor/16x16/apps
+cp utilities/texmaker16x16.png %{buildroot}%_iconsdir/hicolor/16x16/apps/%name.png
+cp utilities/texmaker32x32.png %{buildroot}%_iconsdir/%name.png
+mkdir -p %{buildroot}%_iconsdir/hicolor/32x32/apps
+cp utilities/texmaker32x32.png %{buildroot}%_iconsdir/hicolor/32x32/apps/%name.png
+mkdir -p %{buildroot}%_liconsdir
+cp utilities/texmaker48x48.png %{buildroot}%_liconsdir/%name.png
+mkdir -p %{buildroot}%_iconsdir/hicolor/48x48/apps
+cp utilities/texmaker48x48.png %{buildroot}%_iconsdir/hicolor/48x48/apps/%name.png
+mkdir -p %{buildroot}%_iconsdir/hicolor/scalable/apps
+cp utilities/texmaker.svg %{buildroot}%_iconsdir/hicolor/scalable/apps/%name.svg
 
 # menu
-mkdir -p %buildroot/%_datadir/applications
-cp utilities/texmaker.desktop %buildroot/%_datadir/applications
+mkdir -p %{buildroot}%_datadir/applications
+cp utilities/texmaker.desktop %{buildroot}%_datadir/applications
+
+%clean
+rm -rf %{buildroot}
 
 %post
 %{update_menus}
@@ -82,9 +81,6 @@ cp utilities/texmaker.desktop %buildroot/%_datadir/applications
 
 %postun
 %{clean_menus}
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
@@ -99,4 +95,3 @@ rm -rf $RPM_BUILD_ROOT
 %_iconsdir/hicolor/48x48/apps/%name.png
 %_iconsdir/hicolor/scalable/apps/%name.svg
 %_datadir/applications/%name.desktop
-
