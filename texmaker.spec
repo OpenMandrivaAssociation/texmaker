@@ -11,7 +11,7 @@ URL:             http://www.xm1math.net/texmaker/index.html
 Source0:         http://www.xm1math.net/texmaker/%name-%version.tar.bz2
 Patch0:          texmaker-1.6-fix-invalid-desktop.patch
 Requires:        aspell
-BuildRequires:   qt4-devel
+BuildRequires:   qt4-devel desktop-file-utils
 BuildRoot:       %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
