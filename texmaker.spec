@@ -2,7 +2,7 @@
 
 Name:            texmaker
 Version:         1.6
-Release:         %mkrel 1
+Release:         %mkrel 2
 Epoch:           1
 Summary:         A QT-based LATEX editor
 License:         GPL
