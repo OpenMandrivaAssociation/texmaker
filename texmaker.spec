@@ -8,7 +8,8 @@ Summary:         A QT-based LATEX editor
 License:         GPL
 Group:           Publishing
 URL:             http://www.xm1math.net/texmaker/index.html
-Source0:         http://www.xm1math.net/texmaker/texmaker-1.6.tar.bz2
+Source0:         http://www.xm1math.net/texmaker/%name-%version.tar.bz2
+Patch0:          texmaker-1.6-fix-invalid-desktop.patch
 Requires:        aspell
 BuildRequires:   qt4-devel
 BuildRoot:       %{_tmppath}/%{name}-%{version}-%{release}-root
@@ -40,7 +41,8 @@ It includes the following features:
   corresponding line in the editor 
 
 %prep
-%setup -q 
+%setup -q
+%patch0 -p0 
 
 %build
 export QTDIR=%{qtdir}
@@ -70,7 +72,9 @@ cp utilities/texmaker.svg %{buildroot}%_iconsdir/hicolor/scalable/apps/%name.svg
 
 # menu
 mkdir -p %{buildroot}%_datadir/applications
-cp utilities/texmaker.desktop %{buildroot}%_datadir/applications
+desktop-file-install --vendor='' \
+	--dir=%buildroot%_datadir/applications \
+	utilities/texmaker.desktop
 
 %clean
 rm -rf %{buildroot}
@@ -81,6 +85,7 @@ rm -rf %{buildroot}
 
 %postun
 %{clean_menus}
+%clean_icon_cache hicolor
 
 %files
 %defattr(-,root,root)
@@ -90,8 +95,5 @@ rm -rf %{buildroot}
 %_miconsdir/%name.png
 %_iconsdir/%name.png
 %_liconsdir/%name.png
-%_iconsdir/hicolor/16x16/apps/%name.png
-%_iconsdir/hicolor/32x32/apps/%name.png
-%_iconsdir/hicolor/48x48/apps/%name.png
-%_iconsdir/hicolor/scalable/apps/%name.svg
+%_iconsdir/hicolor/*/apps/*
 %_datadir/applications/%name.desktop
