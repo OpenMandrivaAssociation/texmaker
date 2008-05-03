@@ -1,8 +1,8 @@
 %define qtdir    %{_prefix}/lib/qt4
 
 Name:            texmaker
-Version:         1.6
-Release:         %mkrel 2
+Version:         1.7.1
+Release:         %mkrel 1
 Epoch:           1
 Summary:         A QT-based LATEX editor
 License:         GPL
