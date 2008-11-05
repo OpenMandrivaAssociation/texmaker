@@ -1,17 +1,15 @@
-%define qtdir    %{_prefix}/lib/qt4
-
 Name:            texmaker
-Version:         1.7.1
-Release:         %mkrel 2
+Version:         1.8
+Release:         %mkrel 1
 Epoch:           1
 Summary:         A QT-based LATEX editor
 License:         GPL
 Group:           Publishing
 URL:             http://www.xm1math.net/texmaker/index.html
 Source0:         http://www.xm1math.net/texmaker/%name-%version.tar.bz2
-Patch0:          texmaker-1.6-fix-invalid-desktop.patch
 Requires:        aspell
-BuildRequires:   qt4-devel desktop-file-utils
+BuildRequires:   desktop-file-utils
+BuildRequires:   qt4-devel
 BuildRoot:       %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
@@ -42,11 +40,10 @@ It includes the following features:
 
 %prep
 %setup -q
-%patch0 -p0 
 
 %build
-export QTDIR=%{qtdir}
-%{qtdir}/bin/qmake texmaker.pro
+export QTDIR=%{qt4dir}
+%{qt4dir}/bin/qmake texmaker.pro
 %{__perl} -pi -e "s|-O2|%{optflags}||g" Makefile
 %{make}
 
