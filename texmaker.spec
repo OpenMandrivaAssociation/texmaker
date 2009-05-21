@@ -1,5 +1,5 @@
 Name:            texmaker
-Version:         1.8
+Version:         1.9
 Release:         %mkrel 1
 Epoch:           1
 Summary:         A QT-based LATEX editor
@@ -67,12 +67,6 @@ cp utilities/texmaker48x48.png %{buildroot}%_iconsdir/hicolor/48x48/apps/%name.p
 mkdir -p %{buildroot}%_iconsdir/hicolor/scalable/apps
 cp utilities/texmaker.svg %{buildroot}%_iconsdir/hicolor/scalable/apps/%name.svg
 
-# menu
-mkdir -p %{buildroot}%_datadir/applications
-desktop-file-install --vendor='' \
-	--dir=%buildroot%_datadir/applications \
-	utilities/texmaker.desktop
-
 %clean
 rm -rf %{buildroot}
 
@@ -98,3 +92,4 @@ rm -rf %{buildroot}
 %_liconsdir/%name.png
 %_iconsdir/hicolor/*/apps/*
 %_datadir/applications/%name.desktop
+%_datadir/pixmaps/%name.png
