@@ -1,5 +1,5 @@
 Name:            texmaker
-Version:         1.9.2
+Version:         1.9.9
 Release:         %mkrel 1
 Epoch:           1
 Summary:         A QT-based LATEX editor
@@ -9,7 +9,7 @@ URL:             http://www.xm1math.net/texmaker/index.html
 Source0:         http://www.xm1math.net/texmaker/%name-%version.tar.bz2
 Requires:        aspell
 BuildRequires:   desktop-file-utils
-BuildRequires:   qt4-devel
+BuildRequires:   qt4-devel >= 4.5.1
 BuildRoot:       %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
