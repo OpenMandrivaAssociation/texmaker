@@ -1,12 +1,14 @@
 Name:            texmaker
 Version:         1.9.9
-Release:         %mkrel 1
+Release:         %mkrel 2
 Epoch:           1
 Summary:         A QT-based LATEX editor
 License:         GPL
 Group:           Publishing
-URL:             http://www.xm1math.net/texmaker/index.html
+URL:             http://www.xm1math.net/texmaker/
 Source0:         http://www.xm1math.net/texmaker/%name-%version.tar.bz2
+Source1:	 http://ftp.services.openoffice.org/pub/OpenOffice.org/contrib/dictionaries/en_US.zip
+Patch0:		 texmaker-pro.patch
 Requires:        aspell
 BuildRequires:   desktop-file-utils
 BuildRequires:   qt4-devel >= 4.5.1
@@ -40,6 +42,8 @@ It includes the following features:
 
 %prep
 %setup -q
+%patch0 -p0
+unzip %SOURCE1 -d dictionaries/
 
 %build
 export QTDIR=%{qt4dir}
