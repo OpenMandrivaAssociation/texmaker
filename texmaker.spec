@@ -1,5 +1,5 @@
 Name:            texmaker
-Version:         2.0
+Version:         2.1
 Release:         %mkrel 1
 Epoch:           1
 Summary:         A QT-based LATEX editor
@@ -12,7 +12,7 @@ Patch0:		 texmaker-pro.patch
 Requires:        aspell
 BuildRequires:   desktop-file-utils
 BuildRequires:   qt4-devel >= 4.6.1
-BuildRequires:   libpoppler-qt4-devel
+BuildRequires:   libpoppler-qt4-devel 
 BuildRoot:       %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
