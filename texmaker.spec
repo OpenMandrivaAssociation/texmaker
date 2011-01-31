@@ -1,5 +1,5 @@
 Name:            texmaker
-Version:         2.2
+Version:         2.2.1
 Release:         %mkrel 1
 Epoch:           1
 Summary:         A QT-based LATEX editor
