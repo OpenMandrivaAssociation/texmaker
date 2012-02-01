@@ -1,26 +1,25 @@
 Name:            texmaker
-Version:         3.1
+Version:         3.2.2
 Release:         %mkrel 1
 Epoch:           1
 Summary:         A QT-based LATEX editor
-License:         GPL
+License:         GPLv2+
 Group:           Publishing
 URL:             http://www.xm1math.net/texmaker/
 Source0:         http://www.xm1math.net/texmaker/%name-%version.tar.bz2
-Patch0:		 texmaker-3.1-hunspell.patch
+Patch0:          texmaker-3.2.2-hunspell.patch
 Requires:        aspell
 BuildRequires:   desktop-file-utils
 BuildRequires:   qt4-devel >= 4.6.1
 BuildRequires:   libpoppler-qt4-devel 
 BuildRequires:   hunspell-devel
-BuildRoot:       %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 Texmaker is a free LaTeX editor that integrates many tools needed to develop
 documents with LaTeX, in just one application.
 
 It includes the following features:
-- an unicode editor to write your LaTeX source files 
+- an Unicode editor to write your LaTeX source files 
   (syntax highlighting, undo-redo, search-replace, ...)
 - the principal LaTex tags can be inserted directly with the "LaTeX", 
   "Math" and "Greek" menus 
@@ -35,7 +34,7 @@ It includes the following features:
   to the corresponding part of your document 
 - extensive LaTeX documentation 
 - in the "Messages / Log File" frame, you can see information about processes 
-  and the logfile after a LaTeX compilation 
+  and the log file after a LaTeX compilation 
 - the "Next Latex Error" and "Previous Latex Error" commands let you reach the
   LaTeX errors detected by Kile in the log file 
 - by clicking on the number of a line in the log file, the cursor jumps to the 
@@ -46,53 +45,44 @@ It includes the following features:
 %patch0 -p1 -b .system
 
 %build
-export QTDIR=%{qt4dir}
-%{qt4dir}/bin/qmake texmaker.pro
+%{qmake_qt4} texmaker.pro
 %{make}
 
 %install
-rm -rf %{buildroot}
-mkdir -p %{buildroot}%_bindir
 INSTALL_ROOT=%{buildroot} make install
 
 # icons
-mkdir -p %{buildroot}%_miconsdir
-cp utilities/texmaker16x16.png %{buildroot}%_miconsdir/%name.png
-mkdir -p %{buildroot}%_iconsdir/hicolor/16x16/apps
-cp utilities/texmaker16x16.png %{buildroot}%_iconsdir/hicolor/16x16/apps/%name.png
-cp utilities/texmaker32x32.png %{buildroot}%_iconsdir/%name.png
-mkdir -p %{buildroot}%_iconsdir/hicolor/32x32/apps
-cp utilities/texmaker32x32.png %{buildroot}%_iconsdir/hicolor/32x32/apps/%name.png
-mkdir -p %{buildroot}%_liconsdir
-cp utilities/texmaker48x48.png %{buildroot}%_liconsdir/%name.png
-mkdir -p %{buildroot}%_iconsdir/hicolor/48x48/apps
-cp utilities/texmaker48x48.png %{buildroot}%_iconsdir/hicolor/48x48/apps/%name.png
-mkdir -p %{buildroot}%_iconsdir/hicolor/scalable/apps
-cp utilities/texmaker.svg %{buildroot}%_iconsdir/hicolor/scalable/apps/%name.svg
+for size in 16 22 32 48 64 128
+do
+    dir="%{buildroot}%_iconsdir/hicolor/${size}x${size}/apps/"
+    install -d -m755 $dir
+    ln -s "../../../../texmaker/texmaker${size}x${size}.png" "%{buildroot}%_iconsdir/hicolor/${size}x${size}/apps/%{name}.png"
+done
+install -d -m755 %{buildroot}%{_iconsdir}/hicolor/scalable/apps/
+ln -s ../../../../texmaker/texmaker.svg %{buildroot}%{_iconsdir}/hicolor/scalable/apps/%{name}.svg
+install -d -m755 %{buildroot}%{_miconsdir}/
+ln -s ../../texmaker/texmaker16x16.png %{buildroot}%{_miconsdir}/%{name}.png
+ln -s ../texmaker/texmaker32x32.png %{buildroot}%{_iconsdir}/%{name}.png
+install -d -m755 %{buildroot}%{_liconsdir}/
+ln -s ../../texmaker/texmaker48x48.png %{buildroot}%{_liconsdir}/%{name}.png
 
-%clean
-rm -rf %{buildroot}
+install -d -m 755 %{buildroot}%{_docdir}/%{name}/
+mv -f %{buildroot}%{_datadir}/texmaker/*.txt %{buildroot}%{_datadir}/texmaker/AUTHORS %{buildroot}%{_datadir}/texmaker/COPYING %{buildroot}%{_docdir}/%{name}/
 
-%if %mdkversion < 200900
-%post
-%{update_menus}
-%update_icon_cache hicolor
-%endif
+%find_lang %{name} --with-qt --all-name
 
-%if %mdkversion < 200900
-%postun
-%{clean_menus}
-%clean_icon_cache hicolor
-%endif
-
-%files
+%files -f %{name}.lang
 %defattr(-,root,root)
-%doc utilities/AUTHORS utilities/CHANGELOG.txt
-%_bindir/%name
-%_datadir/%name
-%_miconsdir/%name.png
-%_iconsdir/%name.png
-%_liconsdir/%name.png
-%_iconsdir/hicolor/*/apps/*
-%_datadir/applications/%name.desktop
-%_datadir/pixmaps/%name.png
+%doc %{_docdir}/%{name}
+%{_bindir}/%{name}
+%{_datadir}/%{name}/*.html
+%{_datadir}/%{name}/*.png
+%{_datadir}/%{name}/*.aff
+%{_datadir}/%{name}/*.dic
+%{_datadir}/%{name}/texmaker.svg
+%{_miconsdir}/%{name}.png
+%{_iconsdir}/%{name}.png
+%{_liconsdir}/%{name}.png
+%{_iconsdir}/hicolor/*/apps/*
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/pixmaps/%{name}.png
