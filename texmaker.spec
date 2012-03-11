@@ -70,9 +70,12 @@ ln -s ../../texmaker/texmaker48x48.png %{buildroot}%{_liconsdir}/%{name}.png
 install -d -m 755 %{buildroot}%{_docdir}/%{name}/
 mv -f %{buildroot}%{_datadir}/texmaker/*.txt %{buildroot}%{_datadir}/texmaker/AUTHORS %{buildroot}%{_datadir}/texmaker/COPYING %{buildroot}%{_docdir}/%{name}/
 
+%if %{mdvver} >= 201200
 %find_lang %{name} --with-qt --all-name
+%define langfile %{name}.lang
+%endif
 
-%files -f %{name}.lang
+%files %{?langfile:-f %{langfile}}
 %doc %{_docdir}/%{name}
 %{_bindir}/%{name}
 %{_datadir}/%{name}/*.html
@@ -88,3 +91,6 @@ mv -f %{buildroot}%{_datadir}/texmaker/*.txt %{buildroot}%{_datadir}/texmaker/AU
 %{_iconsdir}/hicolor/*/apps/*
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
+%if %{mdvver} <= 201100
+%{_datadir}/%{name}/*.qm
+%endif
