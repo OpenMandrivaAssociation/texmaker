@@ -1,5 +1,5 @@
 Name:            texmaker
-Version:         3.3.1
+Version:         3.3.2
 Release:         1
 Epoch:           1
 Summary:         A QT-based LATEX editor
@@ -7,10 +7,10 @@ License:         GPLv2+
 Group:           Publishing
 URL:             http://www.xm1math.net/texmaker/
 Source0:         http://www.xm1math.net/texmaker/%name-%version.tar.bz2
-Patch0:          texmaker-3.3.1-hunspell.patch
+Patch0:          texmaker-3.3.2-hunspell.patch
 Requires:        aspell
 BuildRequires:   desktop-file-utils
-BuildRequires:   qt4-devel >= 4.6.1
+BuildRequires:   qt4-devel >= 4.7
 BuildRequires:   libpoppler-qt4-devel 
 BuildRequires:   hunspell-devel
 
