@@ -1,13 +1,13 @@
 Name:            texmaker
-Version:         3.3.4
+Version:         3.4.1
 Release:         1
 Epoch:           1
 Summary:         A QT-based LATEX editor
 License:         GPLv2+
 Group:           Publishing
 URL:             http://www.xm1math.net/texmaker/
-Source0:         http://www.xm1math.net/texmaker/%name-%version.tar.bz2
-Patch0:          texmaker-3.3.4-hunspell.patch
+Source0:         http://www.xm1math.net/texmaker/%{name}-%{version}.tar.bz2
+Patch0:          texmaker-3.4.1-hunspell.patch
 Requires:        aspell
 BuildRequires:   desktop-file-utils
 BuildRequires:   qt4-devel >= 4.7
@@ -55,9 +55,9 @@ INSTALL_ROOT=%{buildroot} make install
 # icons
 for size in 16 22 32 48 64 128
 do
-    dir="%{buildroot}%_iconsdir/hicolor/${size}x${size}/apps/"
+    dir="%{buildroot}%{_iconsdir}/hicolor/${size}x${size}/apps/"
     install -d -m755 $dir
-    ln -s "../../../../texmaker/texmaker${size}x${size}.png" "%{buildroot}%_iconsdir/hicolor/${size}x${size}/apps/%{name}.png"
+    ln -s "../../../../texmaker/texmaker${size}x${size}.png" "%{buildroot}%{_iconsdir}/hicolor/${size}x${size}/apps/%{name}.png"
 done
 install -d -m755 %{buildroot}%{_iconsdir}/hicolor/scalable/apps/
 ln -s ../../../../texmaker/texmaker.svg %{buildroot}%{_iconsdir}/hicolor/scalable/apps/%{name}.svg
