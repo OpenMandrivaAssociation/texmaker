@@ -1,6 +1,6 @@
 Name:            texmaker
 Version:         3.4.1
-Release:         1
+Release:         2
 Epoch:           1
 Summary:         A QT-based LATEX editor
 License:         GPLv2+
