@@ -11,7 +11,7 @@ Patch0:          texmaker-3.4.1-hunspell.patch
 Requires:        aspell
 BuildRequires:   desktop-file-utils
 BuildRequires:   qt4-devel >= 4.7
-BuildRequires:   libpoppler-qt4-devel 
+BuildRequires:   pkgconfig(poppler-qt4) 
 BuildRequires:   hunspell-devel
 
 %description
