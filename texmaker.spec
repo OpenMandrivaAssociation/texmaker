@@ -15,6 +15,8 @@ BuildRequires:   qt4-devel >= 4.7
 BuildRequires:   pkgconfig(poppler-qt4) 
 BuildRequires:   hunspell-devel
 
+%define debug_package %{nil}
+
 %description
 Texmaker is a free LaTeX editor that integrates many tools needed to develop
 documents with LaTeX, in just one application.
