@@ -1,6 +1,6 @@
 Name:            texmaker
-Version:         3.4.1
-Release:         3
+Version:         3.5
+Release:         1
 Epoch:           1
 Summary:         A QT-based LATEX editor
 License:         GPLv2+
@@ -45,8 +45,8 @@ It includes the following features:
 
 %prep
 %setup -q
-%patch0 -p1
-rm -rf hunspell
+# %patch0 -p1
+# rm -rf hunspell
 
 %build
 %{qmake_qt4} texmaker.pro
