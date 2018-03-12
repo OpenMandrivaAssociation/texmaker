@@ -1,2 +1,4 @@
+removed_sources:
+  texmaker-3.5.tar.bz2: 5c8c4fe84bd8c6d5947b934192b7b781d45a67da
 sources:
-  "texmaker-3.5.tar.bz2": 5c8c4fe84bd8c6d5947b934192b7b781d45a67da
+  texmaker-5.0.2.tar.bz2: 91b1996820c176a612300b915a1ab52ce7a02ff8
