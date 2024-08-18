@@ -1,9 +1,8 @@
 %define debug_package %{nil}
 
 Name:            texmaker
-Version:	5.0.3
+Version:	6.0.0
 Release:	1
-Epoch:           1
 Summary:         A QT-based LATEX editor
 License:         GPLv2+
 Group:           Publishing
@@ -14,7 +13,8 @@ Requires:	 texlive-collection-latex
 BuildRequires:   desktop-file-utils
 BuildRequires:   hunspell-devel
 BuildRequires:	 cmake(ECM)
-BuildRequires:	 cmake(Qt5Core) cmake(Qt5Gui) cmake(Qt5Network) cmake(Qt5PrintSupport) cmake(Qt5Script) cmake(Qt5Widgets) cmake(Qt5Xml)
+BuildRequires:	 cmake(Qt6Core) cmake(Qt6Gui) cmake(Qt6Network) cmake(Qt6PrintSupport) cmake(Qt6Widgets) cmake(Qt6Xml) cmake(Qt6WebEngineWidgets)
+BuildSystem:	cmake
 
 %description
 Texmaker is a free LaTeX editor that integrates many tools needed to develop
@@ -42,16 +42,7 @@ It includes the following features:
 - by clicking on the number of a line in the log file, the cursor jumps to the 
   corresponding line in the editor 
 
-%prep
-%setup -q
-
-%build
-%{qmake_qt5} texmaker.pro
-%{make}
-
-%install
-INSTALL_ROOT=%{buildroot} make install
-
+%install -a
 # icons
 for size in 16 22 32 48 64 128
 do
@@ -88,5 +79,4 @@ mv -f %{buildroot}%{_datadir}/texmaker/*.txt %{buildroot}%{_datadir}/texmaker/AU
 %{_iconsdir}/hicolor/*/apps/*
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
-%{_datadir}/metainfo/%{name}.appdata.xml
-
+%{_datadir}/metainfo/texmaker.metainfo.xml
