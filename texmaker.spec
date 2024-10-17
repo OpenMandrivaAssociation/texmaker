@@ -6,7 +6,7 @@ Release:	1
 Summary:         A QT-based LATEX editor
 License:         GPLv2+
 Group:           Publishing
-URL:             http://www.xm1math.net/texmaker/
+URL:             https://www.xm1math.net/texmaker/
 Source0:         http://www.xm1math.net/texmaker/%{name}-%{version}.tar.bz2
 Requires:        aspell
 Requires:	 texlive-collection-latex
