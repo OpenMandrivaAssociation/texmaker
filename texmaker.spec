@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:            texmaker
-Version:	6.0.0
+Version:	6.0.1
 Release:	1
 Summary:         A QT-based LATEX editor
 License:         GPLv2+
