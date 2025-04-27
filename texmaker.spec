@@ -13,7 +13,7 @@ Requires:	 texlive-collection-latex
 BuildRequires:   desktop-file-utils
 BuildRequires:   hunspell-devel
 BuildRequires:	 cmake(ECM)
-BuildRequires:	 cmake(Qt6Core) cmake(Qt6Concurrent) cmake(Qt6Gui) cmake(Qt6Network) cmake(Qt6PrintSupport) cmake(Qt6Widgets) cmake(Qt6Xml) cmake(Qt6WebEngineWidgets)
+BuildRequires:	 cmake(Qt6Core) cmake(Qt6Core5Compt) cmake(Qt6Concurrent) cmake(Qt6Gui) cmake(Qt6Network) cmake(Qt6PrintSupport) cmake(Qt6Widgets) cmake(Qt6Xml) cmake(Qt6WebEngineWidgets)
 BuildSystem:	cmake
 
 %description
