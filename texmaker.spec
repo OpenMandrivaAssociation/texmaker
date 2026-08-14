@@ -3,6 +3,7 @@
 Name:            texmaker
 Version:	6.0.2
 Release:	1
+Epoch:		1
 Summary:         A QT-based LATEX editor
 License:         GPLv2+
 Group:           Publishing
