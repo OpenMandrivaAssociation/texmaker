@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:            texmaker
-Version:	6.0.1
+Version:	6.0.2
 Release:	1
 Summary:         A QT-based LATEX editor
 License:         GPLv2+
@@ -13,7 +13,7 @@ Requires:	 texlive-collection-latex
 BuildRequires:   desktop-file-utils
 BuildRequires:   hunspell-devel
 BuildRequires:	 cmake(ECM)
-BuildRequires:	 cmake(Qt6Core) cmake(Qt6Core5Compt) cmake(Qt6Concurrent) cmake(Qt6Gui) cmake(Qt6Network) cmake(Qt6PrintSupport) cmake(Qt6Widgets) cmake(Qt6Xml) cmake(Qt6WebEngineWidgets)
+BuildRequires:	 cmake(Qt6Core) cmake(Qt6Core5Compat) cmake(Qt6Concurrent) cmake(Qt6Gui) cmake(Qt6Network) cmake(Qt6PrintSupport) cmake(Qt6Qml) cmake(Qt6Widgets) cmake(Qt6Xml) cmake(Qt6WebEngineWidgets)
 BuildSystem:	cmake
 
 %description
